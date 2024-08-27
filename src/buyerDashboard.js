@@ -66,7 +66,7 @@ const ScrapBuyerDashboard = () => {
       fontFamily: 'Arial, sans-serif',
       backgroundColor: '#e0f7da',
       height: '100vh',
-      padding: '20px',
+      padding: '4px',
       boxSizing: 'border-box',
       position: 'relative',
       overflowY: 'auto', // Ensure content doesn't overflow
@@ -79,7 +79,7 @@ const ScrapBuyerDashboard = () => {
       padding: '10px 20px',
       borderRadius: '5px',
       color: 'white',
-      marginBottom: '20px',
+      marginBottom: '10px',
       position: 'relative',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
@@ -114,8 +114,8 @@ const ScrapBuyerDashboard = () => {
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
     contentSection: {
-      marginTop: '20px',
-      padding: '20px',
+      marginTop: '10px',
+      padding: '4px',
       backgroundColor: 'white',
       borderRadius: '10px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -170,13 +170,13 @@ const ScrapBuyerDashboard = () => {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
       gap: '20px',
-      marginBottom: '30px',
+      margin: '10px',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
     metricCard: {
       backgroundColor: '#fff',
       borderRadius: '12px',
-      padding: '20px',
+      padding: '10px',
       textAlign: 'center',
       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
       transition: 'transform 0.2s ease-in-out',
@@ -200,7 +200,7 @@ const ScrapBuyerDashboard = () => {
     notificationsPanel: {
       backgroundColor: '#fff',
       borderRadius: '12px',
-      padding: '20px',
+      padding: '8px',
       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
     },
     notificationTitle: {
@@ -230,7 +230,7 @@ const ScrapBuyerDashboard = () => {
       backgroundColor: '#fff',
       borderRadius: '10px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      padding: '20px',
+      padding: '10px',
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden', // Ensure content is hidden during collapse
@@ -300,19 +300,19 @@ const ScrapBuyerDashboard = () => {
     cartList: {
       listStyleType: 'none', // Remove bullet points
       padding: '0',
-      margin: '20px 0',
+      margin: '8px 0',
       maxHeight: '150px', // Set a max-height for the cart list
       overflowY: 'auto', // Make cart list scrollable if it overflows
       backgroundColor: '#fff',
       borderRadius: '8px',
       boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-      padding: '10px',
+      padding: '6px',
     },
     cartItem: {
       display: 'flex',
       alignItems: 'center', // Align items horizontally
       marginBottom: '10px',
-      padding: '10px',
+      padding: '6px',
       backgroundColor: '#f0f0f0',
       borderRadius: '8px',
       boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
@@ -338,7 +338,7 @@ const ScrapBuyerDashboard = () => {
     },
     imagesContainer: {
       display: 'flex',
-      marginTop: '20px',
+      marginTop: '10px',
       gap: '10px',
     },
     orderImage: {
@@ -438,19 +438,19 @@ const ScrapBuyerDashboard = () => {
       display: 'flex',
       flexDirection: 'column',
       gap: '20px',
-      marginTop: '20px',
+      marginTop: '10px',
     },
     materialCard: {
       backgroundColor: '#fff',
       borderRadius: '10px',
-      padding: '20px',
+      padding: '10px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
     materialCategory: {
       fontSize: '20px',
       fontWeight: 'bold',
-      marginBottom: '15px',
+      marginBottom: '12px',
       color: '#4A4A4A',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
@@ -462,7 +462,7 @@ const ScrapBuyerDashboard = () => {
     itemCard: {
       backgroundColor: '#f9f9f9',
       borderRadius: '10px',
-      padding: '15px',
+      padding: '8px',
       textAlign: 'center',
       boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
       transition: 'transform 0.2s ease-in-out',
@@ -496,8 +496,8 @@ const ScrapBuyerDashboard = () => {
       display: 'flex',
       flexWrap: 'wrap',
       gap: '10px',
-      marginTop: '20px',
-      marginBottom: '20px',
+      marginTop: '10px',
+      marginBottom: '10px',
     },
     categoryTile: {
       padding: '10px 15px',
@@ -592,7 +592,7 @@ const ScrapBuyerDashboard = () => {
     width: '100%',
   },
   modalContentWrapper: {
-    margin: '20px',
+    margin: '8px',
     display: 'flex',
     flexDirection: 'column',
     gap: '15px',
@@ -602,12 +602,12 @@ const ScrapBuyerDashboard = () => {
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    marginTop: '20px',
+    marginTop: '12px',
     fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
   },
   walletSection: {
     backgroundColor: '#ffffff',
-    padding: '20px',
+    padding: '8px',
     borderRadius: '10px',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
     textAlign: 'left',
@@ -615,14 +615,15 @@ const ScrapBuyerDashboard = () => {
   sectionHeader: {
     fontSize: '22px',
     fontWeight: 'bold',
-    marginBottom: '15px',
+    marginBottom: '6px',
     color: '#333',
     fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
   },
   rechargeButton: {
     backgroundColor: '#4CAF50',
     color: '#fff',
-    padding: '12px 20px',
+    marginLeft: '6px',
+    padding: '6px 10px',
     fontSize: '16px',
     fontWeight: 'bold',
     borderRadius: '8px',
@@ -634,7 +635,7 @@ const ScrapBuyerDashboard = () => {
   generateInvoiceButton: {
     backgroundColor: '#1976D2',
     color: '#fff',
-    padding: '12px 20px',
+    padding: '6px 10px',
     fontSize: '16px',
     fontWeight: 'bold',
     borderRadius: '8px',
@@ -645,9 +646,9 @@ const ScrapBuyerDashboard = () => {
   },
 
   rechargeInput: {
-    width: '80%',
+    width: '60%',
     padding: '10px',
-    marginBottom: '15px',
+    marginBottom: '5px',
     borderRadius: '8px',
     border: '1px solid #ccc',
     fontSize: '16px',
@@ -687,21 +688,21 @@ const ScrapBuyerDashboard = () => {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '40px', // Space between the charts
-    padding: '20px',
+    padding: '5px',
     backgroundColor: '#F9F9F9', // Light background to contrast with the charts
     borderRadius: '12px',
     boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
     width: '80%', // Ensure it takes up the full width of the container
-    maxWidth: '800px', // Limit the maximum width to make it responsive
+    maxWidth: '85vw', // Limit the maximum width to make it responsive
     margin: '0 auto', // Center the container on the page
   },
   chart: {
     backgroundColor: '#FFFFFF',
     borderRadius: '12px',
-    padding: '20px',
+    padding: '8px',
     boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)', // More prominent shadow for individual charts
     width: '100%', // Ensure charts take up full width of the container
-    maxWidth: '600px', // Limit the maximum width of each chart
+    maxWidth: '90vw', // Limit the maximum width of each chart
     transition: 'transform 0.3s ease-in-out', // Smooth transition for hover effect
   },
   chartTitle: {
@@ -729,6 +730,7 @@ const ScrapBuyerDashboard = () => {
   },
 
   };
+
 
 
 
