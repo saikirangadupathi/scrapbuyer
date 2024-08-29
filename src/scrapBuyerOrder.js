@@ -143,7 +143,7 @@ const SellYourRecyclables = ({ t }) => {
     sellRecyclablesContainer: {
       display: 'flex',
       flexDirection: 'column',
-      padding: '20px',
+      padding: '10px',
       backgroundColor: '#f7f7f7',
       borderRadius: '10px',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -152,10 +152,10 @@ const SellYourRecyclables = ({ t }) => {
       fontFamily: "'Roboto', sans-serif",
     },
     sectionTitle: {
-      fontSize: '28px',
+      fontSize: '16px',
       fontWeight: '700',
       color: '#333',
-      marginBottom: '20px',
+      marginBottom: '16px',
       textAlign: 'center',
     },
     formContainer: {
@@ -168,13 +168,13 @@ const SellYourRecyclables = ({ t }) => {
       flexDirection: 'column',
     },
     label: {
-      fontSize: '16px',
+      fontSize: '12px',
       color: '#555',
       marginBottom: '8px',
     },
     input: {
       padding: '10px',
-      fontSize: '16px',
+      fontSize: '12px',
       borderRadius: '5px',
       border: '1px solid #ddd',
       backgroundColor: '#fff',
@@ -183,27 +183,27 @@ const SellYourRecyclables = ({ t }) => {
     },
     errorMessage: {
       color: 'red',
-      fontSize: '14px',
+      fontSize: '11px',
       marginTop: '5px',
     },
     previewContainer: {
       marginTop: '40px',
-      padding: '20px',
+      padding: '10px',
       borderRadius: '10px',
       backgroundColor: '#fff',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     },
     previewTitle: {
-      fontSize: '24px',
+      fontSize: '14px',
       fontWeight: '600',
       color: '#333',
-      marginBottom: '20px',
+      marginBottom: '10px',
       textAlign: 'center',
     },
     postedOffer: {
-      padding: '15px',
+      padding: '8px',
       borderBottom: '1px solid #ddd',
-      marginBottom: '10px',
+      marginBottom: '5px',
     },
 
 
@@ -219,7 +219,7 @@ const SellYourRecyclables = ({ t }) => {
         fontFamily: "'Roboto', sans-serif",
       },
       sectionTitle: {
-        fontSize: '28px',
+        fontSize: '14px',
         fontWeight: '700',
         color: '#333',
         marginBottom: '20px',
@@ -235,13 +235,13 @@ const SellYourRecyclables = ({ t }) => {
         flexDirection: 'column',
       },
       label: {
-        fontSize: '16px',
+        fontSize: '14px',
         color: '#555',
         marginBottom: '8px',
       },
       input: {
         padding: '10px',
-        fontSize: '16px',
+        fontSize: '12px',
         borderRadius: '5px',
         border: '1px solid #ddd',
         backgroundColor: '#fff',
@@ -250,12 +250,12 @@ const SellYourRecyclables = ({ t }) => {
       },
       errorMessage: {
         color: 'red',
-        fontSize: '14px',
+        fontSize: '10px',
         marginTop: '5px',
       },
       uploadButton: {
-        padding: '10px 15px',
-        fontSize: '16px',
+        padding: '6px 10px',
+        fontSize: '12px',
         fontWeight: '600',
         color: '#fff',
         backgroundColor: '#007bff',
@@ -263,11 +263,11 @@ const SellYourRecyclables = ({ t }) => {
         border: 'none',
         cursor: 'pointer',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        marginBottom: '20px',
+        marginBottom: '10px',
       },
       submitButton: {
-        padding: '15px 20px',
-        fontSize: '18px',
+        padding: '8px 10px',
+        fontSize: '12px',
         fontWeight: '600',
         color: '#fff',
         backgroundColor: '#28a745',
@@ -279,15 +279,15 @@ const SellYourRecyclables = ({ t }) => {
       },
 
       postedOffer: {
-        padding: '15px',
+        padding: '8px',
         borderBottom: '1px solid #ddd',
-        marginBottom: '10px',
+        marginBottom: '8px',
       },
       imageContainer: {
         display: 'flex',
         flexWrap: 'wrap',
         gap: '10px',
-        marginTop: '10px',
+        marginTop: '8px',
       },
       image: {
         width: '100px',
