@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import LanguageIcon from './languages.png';
 import i18n from './languageTranslate.js';
 
+import GreenCycleLogo from './greenCyclelogo.png';
+
 import ListIcon from './list.png';
 import DoubleArrowIcon from './leftArrow.png'; // Assuming you have an icon for the double arrow
 
@@ -15,6 +17,13 @@ import AnalyticsAndReports from './scrapBuyerAnalytics.js';
 
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+
+
+import ReactCalendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css'; // Import the calendar's CSS
+
+import './customCalanderStylings.css'; // Your custom styles
+
 
 // Register the components for Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -56,8 +65,15 @@ const ScrapBuyerDashboard = () => {
    const [pieData, setPieData] = useState(null);
    const [barData, setBarData] = useState(null);
 
+   // Add this new state to handle the selected date
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
 
    const pieChartRef = useRef(null);
+
+   const [categoryTableData, setCategoryTableData] = useState([]);
+  const [itemTableData, setItemTableData] = useState([]);
+
 
   
 
@@ -84,7 +100,7 @@ const ScrapBuyerDashboard = () => {
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
     logo: {
-      fontSize: '24px',
+      fontSize: '18px',
       fontWeight: 'bold',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
@@ -108,7 +124,7 @@ const ScrapBuyerDashboard = () => {
     dropdownItem: {
       padding: '10px 20px',
       cursor: 'pointer',
-      fontSize: '16px',
+      fontSize: '12px',
       color: '#333',
       borderBottom: '1px solid #eee',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
@@ -144,7 +160,7 @@ const ScrapBuyerDashboard = () => {
       width: '100%',
       padding: '15px 0',
       textAlign: 'center',
-      fontSize: '18px',
+      fontSize: '12px',
       cursor: 'pointer',
       borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
       transition: 'background-color 0.3s, transform 0.3s',
@@ -186,14 +202,14 @@ const ScrapBuyerDashboard = () => {
       transform: 'translateY(-5px)', // Subtle lift on hover
     },
     metricTitle: {
-      fontSize: '18px',
+      fontSize: '12px',
       fontWeight: '600',
       color: '#4A4A4A',
       marginBottom: '10px',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
     metricValue: {
-      fontSize: '24px',
+      fontSize: '18px',
       fontWeight: '700',
       color: '#1E88E5',
     },
@@ -216,7 +232,7 @@ const ScrapBuyerDashboard = () => {
       marginBottom: '10px',
     },
     sectionTitle: {
-      fontSize: '22px',
+      fontSize: '18px',
       fontWeight: 'bold',
       marginBottom: '15px',
       color: '#333',
@@ -260,14 +276,14 @@ const ScrapBuyerDashboard = () => {
 
     
     orderId: {
-      fontSize: '20px',
+      fontSize: '13px',
       fontWeight: 'bold',
       color: '#4A4A4A',
       marginRight: '10px',
     },
     orderStatus: {
-      fontSize: '16px',
-      color: '#525d3e',
+      fontSize: '12px',
+      color: '#c0726e',
       fontWeight: 'bold',
       marginRight: '5px',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
@@ -291,7 +307,7 @@ const ScrapBuyerDashboard = () => {
     },
     detailText: {
       marginBottom: '4px',
-      fontSize: '16px',
+      fontSize: '12px',
       color: '#333',
       lineHeight: '1.6',
       textAlign: 'left', // Ensure text is aligned to the left
@@ -332,7 +348,7 @@ const ScrapBuyerDashboard = () => {
     },
     cartItemText: {
       margin: '5px 0',
-      fontSize: '14px',
+      fontSize: '11px',
       color: '#555',
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
@@ -351,6 +367,7 @@ const ScrapBuyerDashboard = () => {
     actionButtons: {
       marginTop: '30px',
       display: 'flex',
+      textAlign: 'center',
       flexDirection: 'column',
       gap: '10px',
     },
@@ -361,7 +378,7 @@ const ScrapBuyerDashboard = () => {
       padding: '10px 15px',
       borderRadius: '5px',
       cursor: 'pointer',
-      fontSize: '16px',
+      fontSize: '12px',
       transition: 'background-color 0.3s ease',
     },
     rejectButton: {
@@ -371,11 +388,11 @@ const ScrapBuyerDashboard = () => {
       padding: '10px 15px',
       borderRadius: '5px',
       cursor: 'pointer',
-      fontSize: '16px',
+      fontSize: '12px',
       transition: 'background-color 0.3s ease',
     },
     toggleIcon: {
-      fontSize: '28px',
+      fontSize: '32px',
       color: '#bfd891',
       marginLeft: '10px',
       transition: 'transform 0.3s ease',
@@ -394,25 +411,16 @@ const ScrapBuyerDashboard = () => {
       gap: '10px',
     },
     trackButton: {
-      backgroundColor: '#FFA000',
+      backgroundColor: '#5dbea3',
       color: 'white',
       border: 'none',
       padding: '10px 15px',
       borderRadius: '5px',
       cursor: 'pointer',
-      fontSize: '16px',
+      fontSize: '12px',
       transition: 'background-color 0.3s ease',
     },
-    completeButton: {
-      backgroundColor: '#1E88E5',
-      color: 'white',
-      border: 'none',
-      padding: '10px 15px',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: '16px',
-      transition: 'background-color 0.3s ease',
-    },
+   
     trackButtonHover: {
       backgroundColor: '#FF8F00',
     },
@@ -424,7 +432,7 @@ const ScrapBuyerDashboard = () => {
       padding: '10px 15px',
       borderRadius: '5px',
       cursor: 'pointer',
-      fontSize: '16px',
+      fontSize: '12px',
       transition: 'background-color 0.3s ease',
     },
     acceptButtonHover: {
@@ -448,7 +456,7 @@ const ScrapBuyerDashboard = () => {
       fontFamily: "'Noto Sans Telugu', Arial, sans-serif",
     },
     materialCategory: {
-      fontSize: '20px',
+      fontSize: '16px',
       fontWeight: 'bold',
       marginBottom: '12px',
       color: '#4A4A4A',
@@ -477,17 +485,17 @@ const ScrapBuyerDashboard = () => {
       boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
     },
     itemName: {
-      fontSize: '16px',
+      fontSize: '12px',
       color: '#333',
       marginBottom: '5px',
     },
     itemPrice: {
-      fontSize: '18px',
+      fontSize: '14px',
       fontWeight: 'bold',
       color: '#1E88E5',
     },
     noMaterialsText: {
-      fontSize: '16px',
+      fontSize: '14px',
       color: '#999',
       textAlign: 'center',
     },
@@ -521,7 +529,7 @@ const ScrapBuyerDashboard = () => {
       padding: '5px',
       borderRadius: '5px',
       border: '1px solid #ccc',
-      fontSize: '16px',
+      fontSize: '12px',
     },
     saveButton: {
       backgroundColor: '#4CAF50',
@@ -530,7 +538,7 @@ const ScrapBuyerDashboard = () => {
       padding: '5px 10px',
       borderRadius: '5px',
       cursor: 'pointer',
-      fontSize: '14px',
+      fontSize: '12px',
       transition: 'background-color 0.3s ease',
     },
     editButton: {
@@ -541,7 +549,7 @@ const ScrapBuyerDashboard = () => {
       borderRadius: '5px',
       cursor: 'pointer',
       marginLeft: '10px',
-      fontSize: '14px',
+      fontSize: '12px',
       transition: 'background-color 0.3s ease',
     },
 
@@ -588,7 +596,7 @@ const ScrapBuyerDashboard = () => {
     padding: '5px',
     borderRadius: '5px',
     border: '1px solid #ccc',
-    fontSize: '16px',
+    fontSize: '14px',
     width: '100%',
   },
   modalContentWrapper: {
@@ -613,7 +621,7 @@ const ScrapBuyerDashboard = () => {
     textAlign: 'left',
   },
   sectionHeader: {
-    fontSize: '22px',
+    fontSize: '20px',
     fontWeight: 'bold',
     marginBottom: '6px',
     color: '#333',
@@ -624,7 +632,7 @@ const ScrapBuyerDashboard = () => {
     color: '#fff',
     marginLeft: '6px',
     padding: '6px 10px',
-    fontSize: '16px',
+    fontSize: '12px',
     fontWeight: 'bold',
     borderRadius: '8px',
     border: 'none',
@@ -636,7 +644,7 @@ const ScrapBuyerDashboard = () => {
     backgroundColor: '#1976D2',
     color: '#fff',
     padding: '6px 10px',
-    fontSize: '16px',
+    fontSize: '12px',
     fontWeight: 'bold',
     borderRadius: '8px',
     border: 'none',
@@ -651,7 +659,7 @@ const ScrapBuyerDashboard = () => {
     marginBottom: '5px',
     borderRadius: '8px',
     border: '1px solid #ccc',
-    fontSize: '16px',
+    fontSize: '12px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
   transactionList: {
@@ -671,12 +679,12 @@ const ScrapBuyerDashboard = () => {
     transform: 'translateY(-3px)',
   },
   transactionText: {
-    fontSize: '16px',
+    fontSize: '12px',
     color: '#555',
     marginBottom: '5px',
   },
   noTransactionsText: {
-    fontSize: '16px',
+    fontSize: '13px',
     color: '#999',
     textAlign: 'center',
   },
@@ -692,8 +700,8 @@ const ScrapBuyerDashboard = () => {
     backgroundColor: '#F9F9F9', // Light background to contrast with the charts
     borderRadius: '12px',
     boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
-    width: '80%', // Ensure it takes up the full width of the container
-    maxWidth: '85vw', // Limit the maximum width to make it responsive
+    width: '95%', // Ensure it takes up the full width of the container
+    maxWidth: '95vw', // Limit the maximum width to make it responsive
     margin: '0 auto', // Center the container on the page
   },
   chart: {
@@ -706,7 +714,7 @@ const ScrapBuyerDashboard = () => {
     transition: 'transform 0.3s ease-in-out', // Smooth transition for hover effect
   },
   chartTitle: {
-    fontSize: '20px',
+    fontSize: '13px',
     fontWeight: 'bold',
     color: '#333',
     textAlign: 'center',
@@ -729,44 +737,69 @@ const ScrapBuyerDashboard = () => {
     },
   },
 
-  };
 
+  table: {
+    width: '100%',
+    marginTop: '20px',
+    borderCollapse: 'separate',
+    borderSpacing: '0 15px',
+  },
+  tableHeader: {
+    backgroundColor: '#6200ea', // A deep purple background for headers
+    color: 'white',
+    borderBottom: '2px solid #ddd',
+  },
+  tableRow: {
+    backgroundColor: '#f4f4f4', // A light grey background for rows
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Subtle shadow for the rows
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  },
+  tableCell: {
+    padding: '7px 10px',
+    textAlign: 'left',
+    fontSize: '12px',
+    color: '#333',
+    borderBottom: '1px solid #ddd',
+  },
+  tableRowHover: {
+    transform: 'translateY(-3px)', // Slight lift on hover
+    boxShadow: '0px 6px 12px rgba(0, 0, 0, 0.15)', // Increase shadow on hover
+  },
+  tableHeaderCell: {
+    padding: '8px 10px',
+    fontSize: '12px',
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'left',
+  },
+
+  };
 
 
 
   useEffect(() => {
     if (scrapBuyer && activeSection === 'Dashboard') {
-      // Generate data for the pie chart based on inventory categories
-      const categoryData = scrapBuyer.inventory.map(inventoryCategory => ({
+      const categoryData = scrapBuyer.inventory.map((inventoryCategory) => ({
         category: inventoryCategory.category,
         volume: inventoryCategory.items.reduce((total, item) => total + item.quantity, 0),
+        value: inventoryCategory.items.reduce((total, item) => total + item.paidAmount, 0),
       }));
-
+  
       setPieData({
-        labels: categoryData.map(data => data.category),
+        labels: categoryData.map((data) => data.category),
         datasets: [
           {
-            data: categoryData.map(data => data.volume),
-            backgroundColor: [
-              '#FF6384',
-              '#36A2EB',
-              '#FFCE56',
-              '#FF9F40',
-              '#4BC0C0',
-            ],
-            hoverBackgroundColor: [
-              '#FF6384',
-              '#36A2EB',
-              '#FFCE56',
-              '#FF9F40',
-              '#4BC0C0',
-            ],
+            data: categoryData.map((data) => data.volume),
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0'],
           },
         ],
       });
-      console.log('categoryData..',categoryData);
+  
+      setCategoryTableData(categoryData); // Store the category data for the table
     }
   }, [scrapBuyer, activeSection]);
+  
 
 
   useEffect(() => {
@@ -857,6 +890,47 @@ const ScrapBuyerDashboard = () => {
       console.error('Error fetching orders:', error);
     }
   };
+
+
+
+  // Function to filter orders based on the selected date
+const filterOrdersByDate = (orders) => {
+  return orders.filter(order => {
+    const orderDate = new Date(order.schedulePickup);
+    return (
+      orderDate.getDate() === selectedDate.getDate() &&
+      orderDate.getMonth() === selectedDate.getMonth() &&
+      orderDate.getFullYear() === selectedDate.getFullYear()
+    );
+  });
+};
+
+// Function to get the pending orders count for a specific date
+const getPendingOrdersCountForDate = (date) => {
+  return currentOrders.filter(order => {
+    const orderDate = new Date(order.schedulePickup);
+    return (
+      order.status === 'Pending' &&
+      orderDate.getDate() === date.getDate() &&
+      orderDate.getMonth() === date.getMonth() &&
+      orderDate.getFullYear() === date.getFullYear()
+    );
+  }).length;
+};
+
+const tileContent = ({ date, view }) => {
+  if (view === 'month') {
+    const count = getPendingOrdersCountForDate(date);
+    return count > 0 ? (
+      <div className="order-count-container">
+        <div className="order-count-bubble">{count}</div>
+      </div>
+    ) : null;
+  }
+};
+
+
+
 
 
   // ----------------------------------------- googleMapsUrl -------------------------------------------------------
@@ -1011,9 +1085,9 @@ const ScrapBuyerDashboard = () => {
       key: 'YOUR_RAZORPAY_KEY', // Enter the Key ID generated from the Razorpay Dashboard
       amount: amount * 100, // Amount is in the smallest currency unit. For INR, it is paise.
       currency: 'INR',
-      name: 'Your Company Name',
+      name: 'GreenCycle',
       description: 'Add funds to wallet',
-      image: 'https://yourcompany.com/logo.png', // Replace with your logo URL
+      image: GreenCycleLogo, // Replace with your logo URL
       handler: function (response) {
         console.log('Payment successful:', response);
         // Handle post-payment actions here, like updating the wallet balance
@@ -1078,23 +1152,35 @@ const ScrapBuyerDashboard = () => {
 
   useEffect(() => {
     if (selectedInventoryCategory && scrapBuyer) {
-      const selectedInventoryCategoryData = scrapBuyer.inventory.find(inventoryCategory => inventoryCategory.category === selectedInventoryCategory);
-
+      const selectedInventoryCategoryData = scrapBuyer.inventory.find(
+        (inventoryCategory) => inventoryCategory.category === selectedInventoryCategory
+      );
+  
+      const itemData = selectedInventoryCategoryData
+        ? selectedInventoryCategoryData.items.map((item) => ({
+            name: item.name,
+            volume: item.quantity,
+            value: item.paidAmount,
+          }))
+        : [];
+  
       setBarData({
-        labels: selectedInventoryCategoryData ? selectedInventoryCategoryData.items.map(item => item.name) : [],
+        labels: selectedInventoryCategoryData ? selectedInventoryCategoryData.items.map((item) => item.name) : [],
         datasets: [
           {
             label: 'Quantity',
-            data: selectedInventoryCategoryData ? selectedInventoryCategoryData.items.map(item => item.quantity) : [],
+            data: selectedInventoryCategoryData ? selectedInventoryCategoryData.items.map((item) => item.quantity) : [],
             backgroundColor: '#36A2EB',
             borderColor: '#36A2EB',
             borderWidth: 1,
           },
         ],
       });
-      console.log('selectedInventoryCategory',selectedInventoryCategory,barData);
+  
+      setItemTableData(itemData); // Store the item data for the table
     }
   }, [selectedInventoryCategory, scrapBuyer]);
+  
   
 
   const handleLanguageChange = (lng) => {
@@ -1146,6 +1232,77 @@ const ScrapBuyerDashboard = () => {
 
 
 
+
+
+
+    const renderCategoryTable = () => (
+      <table style={styles.table}>
+        <thead style={styles.tableHeader}>
+          <tr>
+            <th style={styles.tableHeaderCell}>{t('Category')}</th>
+            <th style={styles.tableHeaderCell}>{t('Total Volume')}</th>
+            <th style={styles.tableHeaderCell}>{t('Total Value')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {categoryTableData.map((data, index) => (
+            <tr
+              key={index}
+              style={styles.tableRow}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = styles.tableRowHover.transform;
+                e.currentTarget.style.boxShadow = styles.tableRowHover.boxShadow;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <td style={styles.tableCell}>{data.category}</td>
+              <td style={styles.tableCell}>{data.volume} kg</td>
+              <td style={styles.tableCell}>₹ {data.value.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+    
+    const renderItemTable = () => (
+      <table style={styles.table}>
+        <thead style={styles.tableHeader}>
+          <tr>
+            <th style={styles.tableHeaderCell}>{t('Item Name')}</th>
+            <th style={styles.tableHeaderCell}>{t('Total Volume')}</th>
+            <th style={styles.tableHeaderCell}>{t('Total Value')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {itemTableData.map((data, index) => (
+            <tr
+              key={index}
+              style={styles.tableRow}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = styles.tableRowHover.transform;
+                e.currentTarget.style.boxShadow = styles.tableRowHover.boxShadow;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <td style={styles.tableCell}>{data.name}</td>
+              <td style={styles.tableCell}>{data.volume} kg</td>
+              <td style={styles.tableCell}>₹ {data.value.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+    
+
+
+
+
  const renderContentSection = () => {
  
 
@@ -1162,16 +1319,37 @@ const ScrapBuyerDashboard = () => {
                 <div style={styles.chart}>
                   <h4 style={styles.chartTitle}>{t('Recyclable Categories Volume')}</h4>
                   {pieData && <Pie data={pieData} ref={pieChartRef} onClick={handlePieClick} />}
+                  {renderCategoryTable()} {/* Render the category table here */}
                 </div>
               )}
 
               {selectedInventoryCategory && barData && (
                 <div style={styles.chart}>
                   <h4 style={styles.chartTitle}>{t(`Volume of Sub-categories in ${selectedInventoryCategory}`)}</h4>
-                  <Bar data={barData} />
+                  <Bar
+                          data={barData}
+                          options={{
+                            indexAxis: 'y', // This will make the bar chart horizontal
+                            scales: {
+                              x: {
+                                beginAtZero: true,
+                              },
+                              y: {
+                                beginAtZero: true,
+                              },
+                            },
+                            plugins: {
+                              legend: {
+                                display: false,
+                              },
+                            },
+                          }}
+                        />
+
+                  {renderItemTable()} {/* Render the category table here */}
                 </div>
               )}
-            </div>
+          </div>
             <div style={styles.metricCard}
               onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-5px)')}
               onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
@@ -1213,55 +1391,67 @@ const ScrapBuyerDashboard = () => {
       );
       case 'Order Management':
         return (
+                    
                 <div style={styles.orderList}>
+                            {/* // Inside renderContentSection function, replace the calendar render part: */}
+                                    <ReactCalendar
+                                      onChange={setSelectedDate}
+                                      value={selectedDate}
+                                      tileContent={tileContent} // Add this line to include bubbles on calendar dates
+                                      style={styles.calendar} // Add some styles for better appearance
+                                    />
                                 {/* Display orders with status 'Pending' */}
                                 
-                                {currentOrders.filter(order => order.status === 'Pending').length > 0 ? (
-                                        currentOrders.filter(order => order.status === 'Pending').map((order) => (
-                                          <div key={order.id} style={styles.orderItem}>
+                                {currentOrders.filter(order => 
+                                  order.status === 'Pending' && 
+                                  new Date(order.schedulePickup).toDateString() === selectedDate.toDateString()
+                              ).length > 0 ? (
+                                  currentOrders.filter(order => 
+                                      order.status === 'Pending' && 
+                                      new Date(order.schedulePickup).toDateString() === selectedDate.toDateString()
+                                  ).map((order) => (
+                                      <div key={order.id} style={styles.orderItem}>
                                           <h2 style={styles.sectionTitle}>{t('Pending Orders')}</h2>
-                                            <div style={styles.orderHeader}>
+                                          <div style={styles.orderHeader}>
                                               <h2 style={styles.orderId}>{`Order ID: ${order.id}`}</h2>
                                               <p style={styles.orderStatus}>{`Status : ${order.status}`}</p>
-                                            </div>
-                                            <div style={styles.orderContent}>
+                                          </div>
+                                          
+                                          <div style={styles.orderContent}>
+                                            
                                               <div style={styles.orderDetails}>
-                                                <p style={styles.detailText}><strong>{t('Customer Name')}:</strong> {order.name}</p>
-                                                <p style={styles.detailText}><strong>{t('Scheduled Pickup')}:</strong> {new Date(order.schedulePickup).toLocaleString()}</p>
-                                                <p style={styles.detailText}><strong>{t('Total Weight')}:</strong> {order.totalWeight} kg</p>
-                                                <p style={styles.detailText}><strong>{t('Cart')}:</strong></p>
-                                                <ul style={styles.cartList}>
-                                                  {order.cart.map((item) => (
-                                                    <li key={item.itemId} style={styles.cartItem}>
-                                                      <img src={item.imageUrl} alt={item.name} style={styles.cartItemImage} />
-                                                      <div style={styles.cartItemDetails}>
-                                                        <p style={styles.cartItemText}><strong>{t('Item Name')}:</strong> {item.name}</p>
-                                                        <p style={styles.cartItemText}><strong>{t('Price')}:</strong> ₹ {item.price}</p>
-                                                        <p style={styles.cartItemText}><strong>{t('Quantity')}:</strong> {item.quantity}</p>
-                                                      </div>
-                                                    </li>
-                                                  ))}
-                                                </ul>
+                                                  <p style={styles.detailText}><strong>{t('Customer Name')}:</strong> {order.name}</p>
+                                                  <p style={styles.detailText}><strong>{t('Scheduled Pickup')}:</strong> {new Date(order.schedulePickup).toLocaleString()}</p>
+                                                  <p style={styles.detailText}><strong>{t('Total Weight')}:</strong> {order.totalWeight} kg</p>
+                                                  <p style={styles.detailText}><strong>{t('Cart')}:</strong></p>
+                                                  <ul style={styles.cartList}>
+                                                      {order.cart.map((item) => (
+                                                          <li key={item.itemId} style={styles.cartItem}>
+                                                              <img src={item.imageUrl} alt={item.name} style={styles.cartItemImage} />
+                                                              <div style={styles.cartItemDetails}>
+                                                                  <p style={styles.cartItemText}><strong>{t('Item Name')}:</strong> {item.name}</p>
+                                                                  <p style={styles.cartItemText}><strong>{t('Price')}:</strong> ₹ {item.price}</p>
+                                                                  <p style={styles.cartItemText}><strong>{t('Quantity')}:</strong> {item.quantity}</p>
+                                                              </div>
+                                                          </li>
+                                                      ))}
+                                                  </ul>
                                               </div>
-                                            </div>
-                                            <div style={styles.imagesContainer}>
-                                              {order.images.map((image, index) => (
-                                                <img key={index} src={image} alt={`Scrap Item ${index + 1}`} style={styles.orderImage} />
-                                              ))}
-                                            </div>
-                                            <div style={styles.actionButtons}>
+                                          </div>
+                                          <div style={styles.actionButtons}>
                                               <button style={styles.acceptButton} onClick={() => handleStartOrder(order)}>{t('Accept')}</button>
                                               <button style={styles.rejectButton}>{t('Reject')}</button>
-                                            </div>
                                           </div>
-                                        ))
-                                      ) : (
-                                        <div style={styles.orderItem}>
-                                          <h2 style={styles.sectionTitle}>
-                                          {t('Pending Orders')}</h2>
-                                          <p style={styles.noOrdersText}>{t('No pending orders')}</p>
-                                        </div>
-                                      )}
+                                      </div>
+                                  ))
+                              ) : (
+                                  <div style={styles.orderItem}>
+                                      <h2 style={styles.sectionTitle}>
+                                      {t('Pending Orders')}</h2>
+                                      <p style={styles.noOrdersText}>{t('No pending orders')}</p>
+                                  </div>
+                              )}
+
 
                                   {/* Display orders with status 'inProgress' */}
                                     {currentOrders.filter(order => order.status === 'inProgress').length > 0 ? (
@@ -1406,7 +1596,7 @@ const ScrapBuyerDashboard = () => {
  
 
                                 {/* Order Details for selected order */}
-                    {/* Completed Orders */}
+                          {/* Completed Orders */}
                           {currentOrders.filter(order => order.status === 'completed').length > 0 ? (
                                       currentOrders.filter(order => order.status === 'completed').map((order) => (
                                         <div key={order.id} style={styles.orderItem}>
@@ -1422,9 +1612,9 @@ const ScrapBuyerDashboard = () => {
                                                   <li key={item.itemId} style={{ display: 'flex', marginBottom: 10 }}>
                                                     <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50, marginRight: 10, objectFit: 'cover' }} />
                                                     <div>
-                                                      <p style={{ margin: 0, fontSize: 14 }}><strong>{t('Item Name')}:</strong> {item.name}</p>
-                                                      <p style={{ margin: '2px 0', fontSize: 14 }}><strong>{t('PaidAmount')}:</strong> ₹ {item.paidAmount}</p>
-                                                      <p style={{ margin: 0, fontSize: 14 }}><strong>{t('Quantity')}:</strong> {item.quantity}</p>
+                                                      <p style={{ margin: 0, fontSize: 12 }}><strong>{t('Item Name')}:</strong> {item.name}</p>
+                                                      <p style={{ margin: '2px 0', fontSize: 12 }}><strong>{t('PaidAmount')}:</strong> ₹ {item.paidAmount}</p>
+                                                      <p style={{ margin: 0, fontSize: 12 }}><strong>{t('Quantity')}:</strong> {item.quantity}</p>
                                                     </div>
                                                   </li>
                                                 ))}
@@ -1441,7 +1631,7 @@ const ScrapBuyerDashboard = () => {
                                       <div style={styles.orderItem}>
                                         <h3 style={styles.sectionTitle}>{t('Completed Order Details')}</h3>
                                         <p style={styles.noOrdersText}>{t('No completed orders')}</p>
-                                      </div>
+                        </div>
                     )}
               </div>
         );
@@ -1664,11 +1854,11 @@ const ScrapBuyerDashboard = () => {
         <div
           style={{
             ...styles.sidebarItem,
-            ...(activeSection === 'Payments' ? styles.sidebarItemActive : {}),
+            ...(activeSection === 'Sell Your Recyclables' ? styles.sidebarItemActive : {}),
           }}
-          onClick={() => {setActiveSection('Payments'); setShowSidebar(false);}}
+          onClick={() => {setActiveSection('Sell Your Recyclables'); setShowSidebar(false);}}
         >
-          {t('Payments')}
+          {t('Sell Your Recyclables')}
         </div>
         <div
               style={{
@@ -1679,24 +1869,23 @@ const ScrapBuyerDashboard = () => {
             >
               {t('Your Pricings')}
         </div>
-
         <div
           style={{
             ...styles.sidebarItem,
-            ...(activeSection === 'Sell Your Recyclables' ? styles.sidebarItemActive : {}),
+            ...(activeSection === 'Payments' ? styles.sidebarItemActive : {}),
           }}
-          onClick={() => {setActiveSection('Sell Your Recyclables'); setShowSidebar(false);}}
+          onClick={() => {setActiveSection('Payments'); setShowSidebar(false);}}
         >
-          {t('Sell Your Recyclables')}
+          {t('Payments')}
         </div>
         <div
           style={{
             ...styles.sidebarItem,
-            ...(activeSection === 'Support & Help Center' ? styles.sidebarItemActive : {}),
+            ...(activeSection === 'Analytics & Reports' ? styles.sidebarItemActive : {}),
           }}
-          onClick={() => {setActiveSection('Support & Help Center'); setShowSidebar(false);}}
+          onClick={() => {setActiveSection('Analytics & Reports'); setShowSidebar(false);}}
         >
-          {t('Support & Help Center')}
+          {t('Analytics & Reports')}
         </div>
         <div
           style={{
@@ -1710,12 +1899,13 @@ const ScrapBuyerDashboard = () => {
         <div
           style={{
             ...styles.sidebarItem,
-            ...(activeSection === 'Analytics & Reports' ? styles.sidebarItemActive : {}),
+            ...(activeSection === 'Support & Help Center' ? styles.sidebarItemActive : {}),
           }}
-          onClick={() => {setActiveSection('Analytics & Reports'); setShowSidebar(false);}}
+          onClick={() => {setActiveSection('Support & Help Center'); setShowSidebar(false);}}
         >
-          {t('Analytics & Reports')}
+          {t('Support & Help Center')}
         </div>
+        
         <div
           style={{
             ...styles.sidebarItem,
