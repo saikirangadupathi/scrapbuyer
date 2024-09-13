@@ -53,7 +53,7 @@ const SellYourRecyclables = ({ t }) => {
       const formData = new FormData();
       formData.append('image', file);
       try {
-        const response = await axios.post('https://recycle-backend-lflh.onrender.com/upload', formData);
+        const response = await axios.post('https://recycle-backend-apao.onrender.com/upload', formData);
         return response.data.imageUrl;
       } catch (error) {
         console.error('Error uploading the file', error);
@@ -111,7 +111,7 @@ const SellYourRecyclables = ({ t }) => {
     console.log('newOffer', newOffer);
   
     try {
-      const response = await axios.post(`https://recycle-backend-lflh.onrender.com/scrap-buyer/${scrapBuyerId}/post-offer`, newOffer, {
+      const response = await axios.post(`https://recycle-backend-apao.onrender.com/scrap-buyer/${scrapBuyerId}/post-offer`, newOffer, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -127,7 +127,7 @@ const SellYourRecyclables = ({ t }) => {
 
   const fetchPostedOffers = async () => {
     try {
-      const response = await axios.get(`https://recycle-backend-lflh.onrender.com/scrap-buyer/${scrapBuyerId}/posted-offers`);
+      const response = await axios.get(`https://recycle-backend-apao.onrender.com/scrap-buyer/${scrapBuyerId}/posted-offers`);
       console.log('result..',response.data);
       setPostedOffers(response.data);
     } catch (error) {

@@ -15,6 +15,8 @@ import Modal from 'react-modal';
 import SellYourRecyclables from './scrapBuyerOrder.js';
 import AnalyticsAndReports from './scrapBuyerAnalytics.js';
 
+import Profile from './buyerProfile.js';
+
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
@@ -821,7 +823,7 @@ const ScrapBuyerDashboard = () => {
 
 
   const fetchOrders = async () => {
-    const scrapBuyerId = localStorage.getItem('scrapBuyerId'); // Retrieve scrapBuyerId from localStorage
+    const scrapBuyerId = localStorage.getItem('scrapBuyerId'); 
   
     if (!scrapBuyerId) {
       console.error('Scrap Buyer ID not found in local storage');
@@ -830,13 +832,13 @@ const ScrapBuyerDashboard = () => {
   
     try {
       // Fetch Scrap Buyer Data
-      const scrapBuyerResponse = await axios.get(`https://recycle-backend-lflh.onrender.com/api/scrap-buyers/${scrapBuyerId}`, {
+      const scrapBuyerResponse = await axios.get(`https://recycle-backend-apao.onrender.com/api/scrap-buyers/${scrapBuyerId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
   
       const scrapBuyer = scrapBuyerResponse.data;
       setScrapBuyer(scrapBuyer); // Update state with the scrap buyer data
-      console.log('scrapBuyer..', scrapBuyer);
+
   
       // Assuming scrapBuyer has fields for currentOrders and completedOrders
       const currentOrders = scrapBuyer.currentOrders || [];
@@ -845,7 +847,7 @@ const ScrapBuyerDashboard = () => {
       // Function to fetch additional details for each order
       const fetchOrderDetails = async (orderId) => {
         try {
-          const orderDetailsResponse = await axios.get(`https://recycle-backend-lflh.onrender.com/getorderbyid/${orderId}`);
+          const orderDetailsResponse = await axios.get(`https://recycle-backend-apao.onrender.com/getorderbyid/${orderId}`);
           const orderDetails = orderDetailsResponse.data;
           return {
             id: orderDetails.Id,
@@ -999,13 +1001,13 @@ const tileContent = ({ date, view }) => {
   const handleStartOrder = async (order) => {
     try {
       // API call to update the status in the currentOrders
-      const updateCurrentOrdersResponse = await axios.post('https://recycle-backend-lflh.onrender.com/api/scrap-buyers/update-order-status', {
+      const updateCurrentOrdersResponse = await axios.post('https://recycle-backend-apao.onrender.com/api/scrap-buyers/update-order-status', {
         orderId: order.id,
         status: 'inProgress',
       });
   
       // API call to update the status in the scrap_orders schema
-      const updateScrapOrdersResponse = await axios.post('https://recycle-backend-lflh.onrender.com/api/scrap-orders/update-status', {
+      const updateScrapOrdersResponse = await axios.post('https://recycle-backend-apao.onrender.com/api/scrap-orders/update-status', {
         id: order.id,
         status: 'inProgress',
       });
@@ -1026,7 +1028,7 @@ const tileContent = ({ date, view }) => {
   const handleCompleteOrder = async (order) => {
     try {
       // Update order status in scrap-buyers
-      await axios.post('https://recycle-backend-lflh.onrender.com/api/scrap-buyers/update-order-status', {
+      await axios.post('https://recycle-backend-apao.onrender.com/api/scrap-buyers/update-order-status', {
         orderId: order.id,
         status: 'completed',
       });
@@ -1042,7 +1044,7 @@ const tileContent = ({ date, view }) => {
       }));
       console.log('updatedItems',updatedItems)
       // API call to update the order status and cart items in scrap-orders
-      const res = await axios.post('https://recycle-backend-lflh.onrender.com/api/scrap-orders/update-status', {
+      const res = await axios.post('https://recycle-backend-apao.onrender.com/api/scrap-orders/update-status', {
         id: order.id,
         status: 'completed',
         updatedItems, // Sending the updated items
@@ -1053,7 +1055,7 @@ const tileContent = ({ date, view }) => {
       }
   
       // Handle the response from the completepickup API
-      const response = await axios.put('https://recycle-backend-lflh.onrender.com/scrap-buyer/completepickup', {
+      const response = await axios.put('https://recycle-backend-apao.onrender.com/scrap-buyer/completepickup', {
         id: order.id,
         status: 'completed',
         items: updatedItems,
@@ -1199,7 +1201,7 @@ const tileContent = ({ date, view }) => {
 
   const handleSaveClick = async (item) => {
     try {
-      const response = await axios.post(`https://recycle-backend-lflh.onrender.com/api/scrap-buyers/update-price`, {
+      const response = await axios.post(`https://recycle-backend-apao.onrender.com/api/scrap-buyers/update-price`, {
         itemId: item.itemId,
         buyerPrice: parseFloat(editedPrice),
       });
@@ -1748,9 +1750,11 @@ const tileContent = ({ date, view }) => {
         );
         case 'Sell Your Recyclables':
           return <SellYourRecyclables styles={styles} t={t} />;
+        
+          case 'Profile':
+            return <Profile styles={styles} t={t} />;
 
-
-          case 'Analytics & Reports':
+        case 'Analytics & Reports':
         return <AnalyticsAndReports styles={styles} t={t} />;
 
       case 'Support & Help Center':
@@ -1830,6 +1834,18 @@ const tileContent = ({ date, view }) => {
           style={styles.closeIcon}
           onClick={() => setShowSidebar(false)}
         />
+        <div
+          style={{
+            ...styles.sidebarItem,
+            ...(activeSection === 'Profile' ? styles.sidebarItemActive : {}),
+          }}
+          onClick={() => {
+            setActiveSection('Profile');
+            setShowSidebar(false);
+          }}
+        >
+          {t('Profile')}
+        </div>
         <div
           style={{
             ...styles.sidebarItem,

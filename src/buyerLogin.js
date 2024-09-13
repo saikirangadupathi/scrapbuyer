@@ -18,7 +18,7 @@ const AuthPage = ({ onLogin }) => {
     const handleLogin = async () => {
       try {
         const phoneNumber = `+91-${phone}`;
-        const response = await axios.post('https://recycle-backend-lflh.onrender.com/api/buyerLogin', { phoneNumber });
+        const response = await axios.post('https://recycle-backend-apao.onrender.com/api/buyerLogin', { phoneNumber });
         const { token, scrapBuyerId } = response.data;
         localStorage.setItem('token', token);
         localStorage.setItem('scrapBuyerId', scrapBuyerId);
@@ -35,7 +35,7 @@ const AuthPage = ({ onLogin }) => {
   
     const handleSignup = async () => {
       try {
-        const response = await axios.post('https://recycle-backend-lflh.onrender.com/api/buyerSignup', {
+        const response = await axios.post('https://recycle-backend-apao.onrender.com/api/buyerSignup', {
           name,
           phone,
           businessName,
